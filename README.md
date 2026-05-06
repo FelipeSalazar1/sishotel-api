@@ -193,3 +193,33 @@ Optou-se por `ddl-auto=none` com migrações Flyway versionadas, garantindo rast
 
 **ADR-3: Exclusão lógica de Quartos**
 Quartos com reservas ativas não são excluídos fisicamente. DELETE /rooms/{id} marca como INATIVO (retorna 409 se houver conflito), preservando histórico.
+
+---
+
+## Diagrama camadas
+
+```text
+┌───────────────────────────────┐
+│ Controller (REST)             │
+│ - recebe HTTP                 │
+│ - valida payload (@Valid)     │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│ Service (Regras de negócio)   │
+│ - orquestra o fluxo           │
+│ - aplica validações de domínio│
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│ Repository (Spring Data JPA)  │
+│ - consultas/persistência      │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│ Banco (H2) + Migrações Flyway │
+└───────────────────────────────┘
+```
