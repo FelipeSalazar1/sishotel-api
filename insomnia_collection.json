@@ -1,0 +1,311 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-05-05T22:55:00.000Z",
+  "__export_source": "cursor.codex",
+  "resources": [
+    {
+      "_id": "wrk_sishotel_api",
+      "_type": "workspace",
+      "name": "SisHotel API",
+      "description": "Collection gerada para testes da SisHotel API",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_sishotel_api",
+      "_type": "environment",
+      "parentId": "wrk_sishotel_api",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "token": ""
+      }
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_sishotel_api",
+      "name": "Auth"
+    },
+    {
+      "_id": "fld_guests",
+      "_type": "request_group",
+      "parentId": "wrk_sishotel_api",
+      "name": "Guests"
+    },
+    {
+      "_id": "fld_rooms",
+      "_type": "request_group",
+      "parentId": "wrk_sishotel_api",
+      "name": "Rooms"
+    },
+    {
+      "_id": "fld_reservations",
+      "_type": "request_group",
+      "parentId": "wrk_sishotel_api",
+      "name": "Reservations"
+    },
+    {
+      "_id": "req_auth_login",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"admin\",\n  \"password\": \"123456\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_guests_get_all",
+      "_type": "request",
+      "parentId": "fld_guests",
+      "name": "Listar hóspedes",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/guests"
+    },
+    {
+      "_id": "req_guests_get_by_id",
+      "_type": "request",
+      "parentId": "fld_guests",
+      "name": "Buscar hóspede por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/guests/11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "_id": "req_guests_create",
+      "_type": "request",
+      "parentId": "fld_guests",
+      "name": "Criar hóspede",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/guests",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"fullName\": \"João Costa\",\n  \"document\": \"11122233300\",\n  \"email\": \"joao@example.com\",\n  \"phone\": \"+55-11-91234-5678\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_guests_update",
+      "_type": "request",
+      "parentId": "fld_guests",
+      "name": "Atualizar hóspede",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/v1/guests/11111111-1111-1111-1111-111111111111",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"fullName\": \"João Costa Atualizado\",\n  \"document\": \"11122233300\",\n  \"email\": \"joao.atualizado@example.com\",\n  \"phone\": \"+55-11-99999-0000\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_guests_delete",
+      "_type": "request",
+      "parentId": "fld_guests",
+      "name": "Remover hóspede",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/v1/guests/11111111-1111-1111-1111-111111111111",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_rooms_get_all",
+      "_type": "request",
+      "parentId": "fld_rooms",
+      "name": "Listar quartos",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/rooms"
+    },
+    {
+      "_id": "req_rooms_get_by_id",
+      "_type": "request",
+      "parentId": "fld_rooms",
+      "name": "Buscar quarto por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/rooms/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+    },
+    {
+      "_id": "req_rooms_available",
+      "_type": "request",
+      "parentId": "fld_rooms",
+      "name": "Quartos disponíveis",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/rooms/available?checkin=2026-06-10&checkout=2026-06-13"
+    },
+    {
+      "_id": "req_rooms_create",
+      "_type": "request",
+      "parentId": "fld_rooms",
+      "name": "Criar quarto",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/rooms",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"number\": 401,\n  \"type\": \"SUITE\",\n  \"capacity\": 4,\n  \"pricePerNight\": 650.00\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_rooms_update",
+      "_type": "request",
+      "parentId": "fld_rooms",
+      "name": "Atualizar quarto",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/v1/rooms/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"number\": 402,\n  \"type\": \"DELUXE\",\n  \"capacity\": 3,\n  \"pricePerNight\": 420.00\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_rooms_delete",
+      "_type": "request",
+      "parentId": "fld_rooms",
+      "name": "Desativar quarto",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/v1/rooms/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_reservations_get_all",
+      "_type": "request",
+      "parentId": "fld_reservations",
+      "name": "Listar reservas",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/reservations"
+    },
+    {
+      "_id": "req_reservations_get_by_id",
+      "_type": "request",
+      "parentId": "fld_reservations",
+      "name": "Buscar reserva por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/reservations/99999999-9999-9999-9999-999999999999"
+    },
+    {
+      "_id": "req_reservations_get_by_guest",
+      "_type": "request",
+      "parentId": "fld_reservations",
+      "name": "Reservas por hóspede",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/v1/reservations/guest/11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "_id": "req_reservations_create",
+      "_type": "request",
+      "parentId": "fld_reservations",
+      "name": "Criar reserva",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/v1/reservations",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"guestId\": \"11111111-1111-1111-1111-111111111111\",\n  \"roomId\": \"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa\",\n  \"checkinExpected\": \"2026-06-10\",\n  \"checkoutExpected\": \"2026-06-13\",\n  \"numGuests\": 2\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_reservations_checkin",
+      "_type": "request",
+      "parentId": "fld_reservations",
+      "name": "Check-in reserva",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/api/v1/reservations/99999999-9999-9999-9999-999999999999/checkin",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_reservations_checkout",
+      "_type": "request",
+      "parentId": "fld_reservations",
+      "name": "Check-out reserva",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/api/v1/reservations/99999999-9999-9999-9999-999999999999/checkout",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_reservations_cancel",
+      "_type": "request",
+      "parentId": "fld_reservations",
+      "name": "Cancelar reserva",
+      "method": "PATCH",
+      "url": "{{ _.base_url }}/api/v1/reservations/99999999-9999-9999-9999-999999999999/cancel",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    }
+  ]
+}
